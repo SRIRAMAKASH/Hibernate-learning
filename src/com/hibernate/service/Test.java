@@ -32,7 +32,13 @@ public class Test {
 			//createdTable(session, st1, st2, st3, st4);
 			//selectData(session);
 			//selectMultipleQuery(session, tx);
+			//updateRecord(session);
+			//updateMultipleRecord(session);
+			Student student=session.get(Student.class, 4);
+			session.delete(student);
+			
 			tx.commit();
+			
 		}
 		catch(Exception e)
 		{
@@ -44,6 +50,18 @@ public class Test {
 			session.close();
 		}
 		
+	}
+
+	private static void updateMultipleRecord(Session session) {
+		session.createQuery("update Student set dep='cse' where name='vijay' ").executeUpdate();
+		selectData(session);
+	}
+
+	private static void updateRecord(Session session) {
+		Student student=session.get(Student.class, 2);
+		student.setName("Vijay");
+		session.update(student);
+		selectData(session);
 	}
 
 	private static void selectMultipleQuery(Session session) {
